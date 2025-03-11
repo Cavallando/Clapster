@@ -1,6 +1,6 @@
 //
 //  ClapView.swift
-//  All Hands
+//  Clapster
 //
 //  Created by Michael Cavallaro on 3/11/25.
 //

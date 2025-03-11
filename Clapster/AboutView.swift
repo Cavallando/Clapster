@@ -11,7 +11,7 @@ struct AboutView: View {
                         .foregroundColor(.blue)
                     
                     VStack(alignment: .leading) {
-                        Text("All Hands")
+                        Text("Clapster")
                             .font(.system(size: 28, weight: .bold))
                         Text("The World's Longest Slow Clap")
                             .font(.subheadline)
@@ -42,7 +42,7 @@ struct AboutView: View {
                         .fontWeight(.bold)
                         .padding(.top, 10)
                     
-                    Text("The All Hands app coordinates this global event by:")
+                    Text("The Clapster app coordinates this global event by:")
                         .padding(.bottom, 5)
                     
                     FeatureRow(icon: "calendar", text: "Displaying upcoming clap events in your local time")
@@ -71,7 +71,7 @@ struct AboutView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
-                    Text("© 2025 All Hands Project")
+                    Text("© 2025 The World's Longest Slow Clap")
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }

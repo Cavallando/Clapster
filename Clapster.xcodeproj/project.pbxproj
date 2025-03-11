@@ -11,13 +11,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FF6BF3952D8097D1007011C4 /* All Hands.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "All Hands.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF6BF3952D8097D1007011C4 /* Clapster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clapster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FF6BF3972D8097D1007011C4 /* All Hands */ = {
+		FF6BF3972D8097D1007011C4 /* Clapster */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "All Hands";
+			path = Clapster;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -37,7 +37,7 @@
 		FF6BF38C2D8097D0007011C4 = {
 			isa = PBXGroup;
 			children = (
-				FF6BF3972D8097D1007011C4 /* All Hands */,
+				FF6BF3972D8097D1007011C4 /* Clapster */,
 				FF6BF3962D8097D1007011C4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,7 +45,7 @@
 		FF6BF3962D8097D1007011C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FF6BF3952D8097D1007011C4 /* All Hands.app */,
+				FF6BF3952D8097D1007011C4 /* Clapster.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,9 +53,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FF6BF3942D8097D0007011C4 /* All Hands */ = {
+		FF6BF3942D8097D0007011C4 /* Clapster */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF6BF3A42D8097D2007011C4 /* Build configuration list for PBXNativeTarget "All Hands" */;
+			buildConfigurationList = FF6BF3A42D8097D2007011C4 /* Build configuration list for PBXNativeTarget "Clapster" */;
 			buildPhases = (
 				FF6BF3912D8097D0007011C4 /* Sources */,
 				FF6BF3922D8097D0007011C4 /* Frameworks */,
@@ -66,14 +66,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				FF6BF3972D8097D1007011C4 /* All Hands */,
+				FF6BF3972D8097D1007011C4 /* Clapster */,
 			);
-			name = "All Hands";
+			name = Clapster;
 			packageProductDependencies = (
 				FF6BF3B02D80AA9B007011C4 /* ConfettiSwiftUI */,
 			);
 			productName = "All Hands";
-			productReference = FF6BF3952D8097D1007011C4 /* All Hands.app */;
+			productReference = FF6BF3952D8097D1007011C4 /* Clapster.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -91,7 +91,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FF6BF3902D8097D0007011C4 /* Build configuration list for PBXProject "All Hands" */;
+			buildConfigurationList = FF6BF3902D8097D0007011C4 /* Build configuration list for PBXProject "Clapster" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -108,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FF6BF3942D8097D0007011C4 /* All Hands */,
+				FF6BF3942D8097D0007011C4 /* Clapster */,
 			);
 		};
 /* End PBXProject section */
@@ -253,15 +253,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "All Hands/All_Hands.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Clapster/Clapster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"All Hands/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_ASSET_PATHS = "\"Clapster/Preview Content\"";
 				DEVELOPMENT_TEAM = 7AFRVF8235;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "All Hands";
+				INFOPLIST_KEY_CFBundleDisplayName = Clapster;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -271,12 +271,13 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fun.mike.AllHands;
+				PRODUCT_BUNDLE_IDENTIFIER = fun.mike.Clapster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = NO;
 				SDKROOT = auto;
@@ -284,7 +285,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Debug;
@@ -294,15 +295,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "All Hands/All_Hands.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Clapster/Clapster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"All Hands/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_ASSET_PATHS = "\"Clapster/Preview Content\"";
 				DEVELOPMENT_TEAM = 7AFRVF8235;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "All Hands";
+				INFOPLIST_KEY_CFBundleDisplayName = Clapster;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -312,12 +313,13 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fun.mike.AllHands;
+				PRODUCT_BUNDLE_IDENTIFIER = fun.mike.Clapster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = NO;
 				SDKROOT = auto;
@@ -325,7 +327,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
@@ -333,7 +335,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FF6BF3902D8097D0007011C4 /* Build configuration list for PBXProject "All Hands" */ = {
+		FF6BF3902D8097D0007011C4 /* Build configuration list for PBXProject "Clapster" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF6BF3A22D8097D2007011C4 /* Debug */,
@@ -342,7 +344,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF6BF3A42D8097D2007011C4 /* Build configuration list for PBXNativeTarget "All Hands" */ = {
+		FF6BF3A42D8097D2007011C4 /* Build configuration list for PBXNativeTarget "Clapster" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF6BF3A52D8097D2007011C4 /* Debug */,

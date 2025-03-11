@@ -1,6 +1,6 @@
 //
-//  All_HandsApp.swift
-//  All Hands
+//  ClapsterApp.swift
+//  Clapster
 //
 //  Created by Michael Cavallaro on 3/11/25.
 //
