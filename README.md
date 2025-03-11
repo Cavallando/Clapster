@@ -2,6 +2,8 @@
     <img src="./assets/icon.png" width="100" height="100" style="margin-right: 10px; margin-bottom: 10px;" alt="Clapster App Icon" align="left"/>
 </div>
 
+<br clear="left"/>
+
 # Clapster: The World's Longest Slow Clap
 
 [![Swift Version](https://img.shields.io/badge/Swift-5.5-orange.svg)](https://swift.org)
