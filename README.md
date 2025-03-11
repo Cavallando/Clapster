@@ -1,4 +1,4 @@
-![Clapster App Icon](./Clapster/Assets.xcassets/AppIcon.appiconset/AppIcon~ios-marketing.png)
+<img src="./assets/icon.png" width="100" height="100" style="margin-right: 10px;" alt="Clapster App Icon" align="left"/>
 
 # Clapster: The World's Longest Slow Clap
 
