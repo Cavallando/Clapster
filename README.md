@@ -1,4 +1,4 @@
-<div style="display: flex; align-items: center;">
+<div>
     <img src="./assets/icon.png" width="100" height="100" style="margin-right: 10px;" alt="Clapster App Icon" align="left"/>
 </div>
 
