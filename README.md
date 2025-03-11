@@ -1,5 +1,5 @@
-<div>
-    <img src="./assets/icon.png" width="100" height="100" style="margin-right: 10px;" alt="Clapster App Icon" align="left"/>
+<div style="display: flex; align-items: center;">
+    <img src="./assets/icon.png" width="100" height="100" style="margin-right: 10px; margin-bottom: 10px;" alt="Clapster App Icon" align="left"/>
 </div>
 
 # Clapster: The World's Longest Slow Clap
@@ -8,9 +8,7 @@
 [![Platform](https://img.shields.io/badge/Platform-iOS-blue.svg)](https://developer.apple.com/ios/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-
 Clapster is an iOS app for participating in "The World's Longest Slow Clap" - a global movement that started on April 1st, 2021, when a small group of friends decided to create the most drawn-out slow clap in history, with intervals halving over time to eventually converge on a grand finale.
-
 
 ## Features
 
@@ -87,3 +85,4 @@ Project Link: [https://github.com/yourusername/clapster](https://github.com/your
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
