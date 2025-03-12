@@ -18,11 +18,18 @@ class GameStateManager: ObservableObject {
     // Size constants
     let handSize: CGFloat = 50
     
-    // Timer
-    private var gameTimer: Timer?
-    private var currentSpeed: Double = DEFAULT_SPEED
-    private var currentSpawnRate: Double = DEFAULT_SPAWN_RATE
-
+    // Add hand spawn queue
+    private var handSpawnQueue: [HandPosition] = []
+    
+    // Add separate timers for queue filling and spawning
+    private var queueTimer: Timer?
+    private var spawnTimer: Timer?
+    
+    // Control variables for spawn system
+    private var currentQueueRate: Double = DEFAULT_QUEUE_RATE // How often we add to queue
+    private var currentSpawnRate: Double = DEFAULT_SPAWN_RATE // How often we take from queue
+    private var currentHandLifetime: Double = DEFAULT_HAND_LIFETIME // How long hands stay on screen
+    
     // Add a flag to trigger the difficulty label animation
     @Published var animateDifficultyChange = false
     
@@ -38,12 +45,14 @@ class GameStateManager: ObservableObject {
             score = 0
             currentTier = 0
             handPositions = []
+            handSpawnQueue = []
             
-            currentSpeed = DEFAULT_SPEED
+            currentHandLifetime = DEFAULT_HAND_LIFETIME
+            currentQueueRate = DEFAULT_QUEUE_RATE
             currentSpawnRate = DEFAULT_SPAWN_RATE
         }
         
-        startTimer()
+        startTimers()
     }
     
     // End the game
@@ -52,7 +61,7 @@ class GameStateManager: ObservableObject {
             isGameActive = false
             isGameOver = true
         }
-        stopTimer()
+        stopTimers()
     }
     
     // Go back to menu
@@ -62,7 +71,7 @@ class GameStateManager: ObservableObject {
             isGameOver = false
             handPositions = []
         }
-        stopTimer()
+        stopTimers()
     }
     
     // Update screen dimensions
@@ -71,42 +80,72 @@ class GameStateManager: ObservableObject {
     }
     
     // Timer management
-    private func startTimer() {
-        stopTimer()
+    private func startTimers() {
+        stopTimers()
         
-        gameTimer = Timer.scheduledTimer(withTimeInterval: currentSpawnRate, repeats: true) { [weak self] _ in
-            self?.spawnHand()
+        // Timer for adding hands to the queue
+        queueTimer = Timer.scheduledTimer(withTimeInterval: currentQueueRate, repeats: true) { [weak self] _ in
+            self?.addHandToQueue()
+        }
+        
+        // Timer for taking hands from queue and placing on screen
+        spawnTimer = Timer.scheduledTimer(withTimeInterval: currentSpawnRate, repeats: true) { [weak self] _ in
+            self?.spawnHandFromQueue()
             self?.checkForMissedHands()
         }
     }
     
-    private func stopTimer() {
-        gameTimer?.invalidate()
-        gameTimer = nil
+    private func stopTimers() {
+        queueTimer?.invalidate()
+        queueTimer = nil
+        
+        spawnTimer?.invalidate()
+        spawnTimer = nil
     }
     
-    // Game logic methods
-    private func spawnHand() {
-        print("GameStateManager: Spawning hands")
+    // Queue management
+    private func addHandToQueue() {
+        // Create a hand position
+        let handPosition = createHandPosition()
         
-        let currentDifficulty = DifficultyTiers[currentTier]
-
-        if (currentDifficulty.maxHandsPerSpawn > 1 && Double.random(in: 0...1) < currentDifficulty.multiHandChance) {
-            let numHands = Int.random(in: 2...currentDifficulty.maxHandsPerSpawn)
-            print("Spawning \(numHands) hands at once")
-            
-            for _ in 0..<numHands {
-                spawnSingleHand()
-            }
-        } else {
-            spawnSingleHand()
+        // Add to queue
+        handSpawnQueue.append(handPosition)
+        
+        print("Added hand to queue. Queue size: \(handSpawnQueue.count)")
+    }
+    
+    private func spawnHandFromQueue() {
+        // Only spawn if we have hands in the queue
+        guard !handSpawnQueue.isEmpty else { 
+            print("Queue is empty, nothing to spawn")
+            return 
         }
+        
+        // Take the first hand from the queue
+        let handPosition = handSpawnQueue.removeFirst()
+        
+        // Update the creation timestamp to now
+        let updatedHand = HandPosition(
+            id: handPosition.id,
+            x: handPosition.x,
+            y: handPosition.y,
+            color: handPosition.color,
+            createdAt: Date(),  // Update timestamp to now
+            timeToLive: currentHandLifetime
+        )
+        
+        // Add to active hands
+        DispatchQueue.main.async {
+            withAnimation(.easeIn(duration: 0.3)) {
+                self.handPositions.append(updatedHand)
+            }
+        }
+        
+        print("Spawned hand from queue. Remaining in queue: \(handSpawnQueue.count)")
     }
     
-    // Spawn a single hand at a random position
-    private func spawnSingleHand() {
-        print("GameStateManager: Screen dimensions: \(screenDimensions.width) x \(screenDimensions.height)")
-        
+    // Create a hand position without adding it to the screen
+    private func createHandPosition() -> HandPosition {
         // Create a safe margin around the edges
         let margin: CGFloat = handSize
         
@@ -114,22 +153,14 @@ class GameStateManager: ObservableObject {
         let randomX = CGFloat.random(in: margin...(screenDimensions.width - margin))
         let randomY = CGFloat.random(in: margin...(screenDimensions.height - margin))
         
-        print("GameStateManager: Spawning hand at: \(randomX), \(randomY)")
-        
-        let handPosition = HandPosition(
+        return HandPosition(
             id: UUID(),
             x: randomX,
             y: randomY,
             color: getRandomHandColor(),
-            createdAt: Date(),
-            timeToLive: currentSpeed
+            createdAt: Date(),  // This will be updated when actually spawned
+            timeToLive: currentHandLifetime
         )
-        
-        DispatchQueue.main.async {
-            withAnimation(.easeIn(duration: 0.3)) {
-                self.handPositions.append(handPosition)
-            }
-        }
     }
     
     // Get a random color for the hand that's different from the last one
@@ -174,11 +205,12 @@ class GameStateManager: ObservableObject {
             if score >= tier.scoreThreshold && index > currentTier {
                 // Player has reached a new tier
                 currentTier = index
-                currentSpeed = tier.handLifetime
+                currentHandLifetime = tier.handLifetime
+                currentQueueRate = tier.queueRate
                 currentSpawnRate = tier.spawnRate
                 
-                // Start timer with new spawn rate
-                startTimer()
+                // Update timers with new rates
+                startTimers()
                 
                 // Trigger animation of difficulty change
                 triggerDifficultyAnimation()

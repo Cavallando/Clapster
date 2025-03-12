@@ -4,7 +4,6 @@ import GameKit
 
 // Game constants and difficulty settings
 let DEFAULT_SPEED = 2.0
-let DEFAULT_SPAWN_RATE = 2.0
 
 
 struct PlayView: View {
