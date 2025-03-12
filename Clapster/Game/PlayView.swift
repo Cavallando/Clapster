@@ -81,20 +81,21 @@ struct PlayView: View {
                         
                         // Game play area
                         ZStack {
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(width: geometry.size.width, height: geometry.size.height - 130)
+                                .contentShape(Rectangle())
+                                // Disable hit testing on the entire game area
+                                .allowsHitTesting(false)
+                            
                             ForEach(gameState.handPositions) { hand in
-                                Image(systemName: "hand.raised.fill")
-                                    .font(.system(size: 50))
-                                    .foregroundColor(hand.color)
-                                    .position(x: hand.x, y: hand.y)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        tapHand(hand)
-                                    }
-                                    .zIndex(1)
+                                HandView(hand: hand, tapAction: {
+                                    tapHand(hand)
+                                })
+                                .position(x: hand.x, y: hand.y)
                             }
                         }
-                        .frame(width: geometry.size.width, 
-                               height: geometry.size.height - 130)
+                        .frame(width: geometry.size.width, height: geometry.size.height - 130)
                         .onAppear {
                             gameState.updateScreenDimensions(
                                 width: geometry.size.width,
