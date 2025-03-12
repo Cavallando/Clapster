@@ -65,17 +65,6 @@ struct StartGameView: View {
 // Preview for ScoreCardView
 struct ScoreCardViewPreviews: PreviewProvider {
     static var previews: some View {
-        let sampleTiers: [DifficultyTier] = [
-            DifficultyTier(name: "Easy", handLifetime: 2.0, spawnRate: 2.0, multiHandChance: 0.0, 
-                           maxHandsPerSpawn: 1, scoreThreshold: 0, color: .blue),
-            DifficultyTier(name: "Medium", handLifetime: 1.5, spawnRate: 1.5, multiHandChance: 0.2, 
-                           maxHandsPerSpawn: 2, scoreThreshold: 20, color: .green),
-            DifficultyTier(name: "Hard", handLifetime: 1.0, spawnRate: 1.0, multiHandChance: 0.5, 
-                           maxHandsPerSpawn: 3, scoreThreshold: 50, color: .orange),
-            DifficultyTier(name: "Legendary", handLifetime: 0.5, spawnRate: 0.5, multiHandChance: 0.8, 
-                           maxHandsPerSpawn: 3, scoreThreshold: 100, color: .purple)
-        ]
-        
         VStack(spacing: 30) {
             // Low score
             ScoreCardView(score: 5, currentTier: 0, screenWidth: 390)

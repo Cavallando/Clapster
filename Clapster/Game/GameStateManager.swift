@@ -23,7 +23,9 @@ class GameStateManager: ObservableObject {
     private var currentSpeed: Double = DEFAULT_SPEED
     private var currentSpawnRate: Double = DEFAULT_SPAWN_RATE
 
-    @Published var tierChangeColor: Color = .clear
+    // Add a flag to trigger the difficulty label animation
+    @Published var animateDifficultyChange = false
+    
     static let shared = GameStateManager()
     
     private init() {}
@@ -83,7 +85,7 @@ class GameStateManager: ObservableObject {
         
         let currentDifficulty = DifficultyTiers[currentTier]
 
-        if Double.random(in: 0...1) < currentDifficulty.multiHandChance {
+        if (currentDifficulty.maxHandsPerSpawn > 1 && Double.random(in: 0...1) < currentDifficulty.multiHandChance) {
             let numHands = Int.random(in: 2...currentDifficulty.maxHandsPerSpawn)
             print("Spawning \(numHands) hands at once")
             
@@ -172,23 +174,21 @@ class GameStateManager: ObservableObject {
                 // Start timer with new spawn rate
                 startTimer()
                 
-                // Trigger tier change flash effect with the tier's color
-                triggerTierChangeFlash(tier.color)
+                // Trigger animation of difficulty change
+                triggerDifficultyAnimation()
                 break
             }
         }
     }
     
-    // Method to trigger the flash effect
-    private func triggerTierChangeFlash(_ color: Color) {
-        // Set flash color
-        tierChangeColor = color.opacity(0.2)
+    // Method to trigger the difficulty animation
+    private func triggerDifficultyAnimation() {
+        // Set animation flag
+        animateDifficultyChange = true
         
-        // Schedule reset after brief delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            withAnimation(.easeOut(duration: 0.2)) {
-                self?.tierChangeColor = .clear
-            }
+        // Reset flag after animation completes
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.animateDifficultyChange = false
         }
     }
 } 
