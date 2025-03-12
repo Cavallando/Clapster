@@ -22,12 +22,43 @@ class TabSelection: ObservableObject {
 }
 
 @main
-struct All_HandsApp: App {
+struct ClapsterApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    @StateObject private var tabSelection = TabSelectionViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(tabSelection)
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .active {
+                        // Check for upcoming claps when app becomes active
+                        LiveActivityManager.shared.refreshAllActivities()
+                    }
+                }
+                .onOpenURL { url in
+                    handleURL(url)
+                }
+        }
+    }
+    
+    private func handleURL(_ url: URL) {
+        guard url.scheme == "clapster" else { return }
+        
+        if url.host == "tab" {
+            let tabName = url.pathComponents.dropFirst().first
+            
+            switch tabName {
+            case "clap":
+                tabSelection.selectedTab = 1
+            case "home": 
+                tabSelection.selectedTab = 0
+            case "about":
+                tabSelection.selectedTab = 2
+            default:
+                break
+            }
         }
     }
 }
@@ -56,4 +87,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         completionHandler()
     }
+}
+
+// ViewModel to hold the tab selection state
+class TabSelectionViewModel: ObservableObject {
+    @Published var selectedTab: Int = 0
 }

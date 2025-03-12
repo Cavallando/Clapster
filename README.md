@@ -20,6 +20,8 @@ Clapster is an iOS app for participating in "The World's Longest Slow Clap" - a 
 - **Global Time Conversion**: All events are shown in your local time zone
 - **Interactive Clapping**: Enjoy confetti animations when a clap event occurs
 - **Deep Linking**: Tap on notifications to navigate directly to the clap screen
+- **Live Activities**: Get a live countdown to the next clap event on your iPhone Xs or later
+- **Widgets**: A widget that shows the next clap event and a countdown. Supports home screen and lock screen widgets.
 
 ## Installation
 

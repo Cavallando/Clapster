@@ -4,7 +4,7 @@ struct AboutView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Header
+
                 HStack {
                     Image(systemName: "hands.clap.fill")
                         .font(.system(size: 40))
@@ -24,7 +24,6 @@ struct AboutView: View {
                 
                 Divider()
                 
-                // The story
                 Group {
                     Text("Our Story")
                         .font(.title2)
@@ -65,7 +64,6 @@ struct AboutView: View {
                 
                 Spacer(minLength: 30)
                 
-                // Footer
                 VStack(alignment: .center) {
                     Text("Version 1.0")
                         .font(.caption)

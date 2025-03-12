@@ -7,22 +7,101 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF53257E2D80E0C500F1EAED /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF53257D2D80E0C500F1EAED /* WidgetKit.framework */; };
+		FF5325802D80E0C500F1EAED /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF53257F2D80E0C500F1EAED /* SwiftUI.framework */; };
+		FF5325912D80E0C600F1EAED /* ClapsterWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FF53257B2D80E0C500F1EAED /* ClapsterWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FF6BF3B12D80AA9B007011C4 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FF6BF3B02D80AA9B007011C4 /* ConfettiSwiftUI */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FF53258F2D80E0C600F1EAED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF6BF38D2D8097D0007011C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FF53257A2D80E0C500F1EAED;
+			remoteInfo = ClapsterWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FF5325922D80E0C600F1EAED /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FF5325912D80E0C600F1EAED /* ClapsterWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		FF53257B2D80E0C500F1EAED /* ClapsterWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClapsterWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF53257D2D80E0C500F1EAED /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		FF53257F2D80E0C500F1EAED /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		FF6BF3952D8097D1007011C4 /* Clapster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clapster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FF5325952D80E0C600F1EAED /* Exceptions for "ClapsterWidget" folder in "ClapsterWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FF53257A2D80E0C500F1EAED /* ClapsterWidgetExtension */;
+		};
+		FF53259A2D80E7A000F1EAED /* Exceptions for "Clapster" folder in "ClapsterWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Shared/ActivityAttributes.swift,
+				Shared/ActivityHelpers.swift,
+				Shared/ColorExtension.swift,
+				Shared/DateData.swift,
+				Shared/TimeFormatter.swift,
+			);
+			target = FF53257A2D80E0C500F1EAED /* ClapsterWidgetExtension */;
+		};
+		FF5325A62D80F96F00F1EAED /* Exceptions for "Clapster" folder in "Clapster" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FF6BF3942D8097D0007011C4 /* Clapster */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		FF5325812D80E0C500F1EAED /* ClapsterWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FF5325952D80E0C600F1EAED /* Exceptions for "ClapsterWidget" folder in "ClapsterWidgetExtension" target */,
+			);
+			path = ClapsterWidget;
+			sourceTree = "<group>";
+		};
 		FF6BF3972D8097D1007011C4 /* Clapster */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FF5325A62D80F96F00F1EAED /* Exceptions for "Clapster" folder in "Clapster" target */,
+				FF53259A2D80E7A000F1EAED /* Exceptions for "Clapster" folder in "ClapsterWidgetExtension" target */,
+			);
 			path = Clapster;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FF5325782D80E0C500F1EAED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF5325802D80E0C500F1EAED /* SwiftUI.framework in Frameworks */,
+				FF53257E2D80E0C500F1EAED /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FF6BF3922D8097D0007011C4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -34,10 +113,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF53257C2D80E0C500F1EAED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF53257D2D80E0C500F1EAED /* WidgetKit.framework */,
+				FF53257F2D80E0C500F1EAED /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FF6BF38C2D8097D0007011C4 = {
 			isa = PBXGroup;
 			children = (
 				FF6BF3972D8097D1007011C4 /* Clapster */,
+				FF5325812D80E0C500F1EAED /* ClapsterWidget */,
+				FF53257C2D80E0C500F1EAED /* Frameworks */,
 				FF6BF3962D8097D1007011C4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				FF6BF3952D8097D1007011C4 /* Clapster.app */,
+				FF53257B2D80E0C500F1EAED /* ClapsterWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,6 +144,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FF53257A2D80E0C500F1EAED /* ClapsterWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF5325962D80E0C600F1EAED /* Build configuration list for PBXNativeTarget "ClapsterWidgetExtension" */;
+			buildPhases = (
+				FF5325772D80E0C500F1EAED /* Sources */,
+				FF5325782D80E0C500F1EAED /* Frameworks */,
+				FF5325792D80E0C500F1EAED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FF5325812D80E0C500F1EAED /* ClapsterWidget */,
+			);
+			name = ClapsterWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = ClapsterWidgetExtension;
+			productReference = FF53257B2D80E0C500F1EAED /* ClapsterWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		FF6BF3942D8097D0007011C4 /* Clapster */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF6BF3A42D8097D2007011C4 /* Build configuration list for PBXNativeTarget "Clapster" */;
@@ -60,10 +173,12 @@
 				FF6BF3912D8097D0007011C4 /* Sources */,
 				FF6BF3922D8097D0007011C4 /* Frameworks */,
 				FF6BF3932D8097D0007011C4 /* Resources */,
+				FF5325922D80E0C600F1EAED /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FF5325902D80E0C600F1EAED /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				FF6BF3972D8097D1007011C4 /* Clapster */,
@@ -86,6 +201,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					FF53257A2D80E0C500F1EAED = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					FF6BF3942D8097D0007011C4 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -109,11 +227,19 @@
 			projectRoot = "";
 			targets = (
 				FF6BF3942D8097D0007011C4 /* Clapster */,
+				FF53257A2D80E0C500F1EAED /* ClapsterWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FF5325792D80E0C500F1EAED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FF6BF3932D8097D0007011C4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,6 +250,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FF5325772D80E0C500F1EAED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FF6BF3912D8097D0007011C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -133,7 +266,82 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		FF5325902D80E0C600F1EAED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FF53257A2D80E0C500F1EAED /* ClapsterWidgetExtension */;
+			targetProxy = FF53258F2D80E0C600F1EAED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		FF5325932D80E0C600F1EAED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 7AFRVF8235;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClapsterWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClapsterWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fun.mike.Clapster.ClapsterWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FF5325942D80E0C600F1EAED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 7AFRVF8235;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClapsterWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClapsterWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fun.mike.Clapster.ClapsterWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		FF6BF3A22D8097D2007011C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -255,12 +463,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Clapster/Clapster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Clapster/Preview Content\"";
 				DEVELOPMENT_TEAM = 7AFRVF8235;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Clapster/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Clapster;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -297,12 +506,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Clapster/Clapster.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Clapster/Preview Content\"";
 				DEVELOPMENT_TEAM = 7AFRVF8235;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Clapster/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Clapster;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -335,6 +545,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FF5325962D80E0C600F1EAED /* Build configuration list for PBXNativeTarget "ClapsterWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF5325932D80E0C600F1EAED /* Debug */,
+				FF5325942D80E0C600F1EAED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FF6BF3902D8097D0007011C4 /* Build configuration list for PBXProject "Clapster" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

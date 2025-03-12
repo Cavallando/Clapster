@@ -8,7 +8,7 @@
 import SwiftUI
 import UserNotifications
 import ConfettiSwiftUI
-import Combine  // Add Combine framework import
+import Combine
 
 struct ConfettiEmoji: Identifiable {
     let id = UUID()
@@ -23,15 +23,10 @@ struct ConfettiEmoji: Identifiable {
 struct ClapView: View {
     @State private var timeRemaining: TimeInterval = 0
     @State private var nextEventDate: Date?
-    @State private var timerCancellable: AnyCancellable?  // Use AnyCancellable instead
-    @State private var showingReminderAlert = false
-    @State private var reminderFeedback = ""
-    @State private var showingFeedback = false
+    @State private var timerCancellable: AnyCancellable?
     
-    // Confetti trigger
     @State private var confettiTrigger = 0
     
-    // Add an app state observer
     @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
@@ -81,12 +76,11 @@ struct ClapView: View {
                 openingAngle: Angle(degrees: 0),
                 closingAngle: Angle(degrees: 360),
                 radius: 200,
-                repetitions: 5,
+                repetitions: 3,
                 repetitionInterval: 0.7
             )
             .navigationTitle("Next Clap")
             .onAppear {
-                // Recalculate exact time when view appears
                 updateNextEvent()
                 startTimer()
             }
@@ -96,98 +90,16 @@ struct ClapView: View {
             // Monitor app state changes
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
-                    // App came to foreground - recalculate exact time
                     updateTimeRemaining()
-                    // Restart timer if needed
                     if timerCancellable == nil {
                         startTimer()
                     }
                 } else if newPhase == .background {
-                    // Optionally stop timer when in background to save resources
-                    // stopTimer()
+                    stopTimer()
                 }
             }
             .onReceive(Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()) { _ in
                 updateTimeRemaining()
-            }
-            .alert("Set Reminder", isPresented: $showingReminderAlert) {
-                Button("15 Minutes Before", role: .none) {
-                    scheduleReminder(minutesBefore: 15)
-                }
-                Button("1 Hour Before", role: .none) {
-                    scheduleReminder(minutesBefore: 60)
-                }
-                Button("1 Day Before", role: .none) {
-                    scheduleReminder(minutesBefore: 24 * 60)
-                }
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                if let nextEvent = nextEventDate {
-                    Text("When would you like to be reminded about the clap event on \(formattedEventDate(nextEvent))?")
-                } else {
-                    Text("No upcoming events to set a reminder for.")
-                }
-            }
-            .alert("Reminder", isPresented: $showingFeedback) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text(reminderFeedback)
-            }
-        }
-    }
-    
-    // Schedule the actual reminder using UserNotifications
-    private func scheduleReminder(minutesBefore: Int) {
-        guard let eventDate = nextEventDate else {
-            reminderFeedback = "No upcoming event to set a reminder for"
-            showingFeedback = true
-            return
-        }
-        
-        // Create a unique identifier for this notification
-        let identifier = "ClapEvent-\(eventDate.timeIntervalSince1970)-\(minutesBefore)"
-        
-        // Calculate the notification time (event time minus minutes before)
-        let reminderDate = eventDate.addingTimeInterval(-TimeInterval(minutesBefore * 60))
-        
-        // Check if the reminder time is in the past
-        if reminderDate <= Date() {
-            reminderFeedback = "Cannot set reminder for a time in the past"
-            showingFeedback = true
-            return
-        }
-        
-        // Create date components for the trigger
-        let dateComponents = Calendar.current.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second],
-            from: reminderDate
-        )
-        
-        // Create the notification content
-        let content = UNMutableNotificationContent()
-        content.title = "Upcoming Clap Event"
-        content.body = "Your clap event is starting in \(minutesText(minutesBefore))"
-        content.sound = .default
-        
-        // Create the trigger using the date components
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        
-        // Create the request
-        let request = UNNotificationRequest(
-            identifier: identifier,
-            content: content,
-            trigger: trigger
-        )
-        
-        // Add the notification request
-        UNUserNotificationCenter.current().add(request) { error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    reminderFeedback = "Failed to schedule reminder: \(error.localizedDescription)"
-                } else {
-                    reminderFeedback = "Reminder set for \(minutesText(minutesBefore)) before the event"
-                }
-                showingFeedback = true
             }
         }
     }
@@ -334,7 +246,7 @@ struct CountdownBlock: View {
     // Dynamic block background color based on color scheme
     private var blockBackgroundColor: Color {
         colorScheme == .dark ? 
-            Color(.systemGray6) : // Slightly lighter in dark mode
+            Color(.systemGray6) :
             Color(.systemBackground)
     }
     
@@ -352,8 +264,6 @@ struct CountdownBlock: View {
             Color.clear
     }
 }
-
-// Use the existing DateTimeCard from HomeView to show event details
 
 #Preview {
     ClapView()

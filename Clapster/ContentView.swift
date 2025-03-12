@@ -12,6 +12,7 @@ import UserNotifications
 let clapNotificationCategory = "CLAP_EVENT_NOTIFICATION"
 
 struct ContentView: View {
+    @EnvironmentObject private var tabSelection: TabSelectionViewModel
     @State private var notificationsSetup = false
     @State private var selectedTab = 0
     @State private var showToast = false
@@ -20,7 +21,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            TabView(selection: $selectedTab) {
+            TabView(selection: $tabSelection.selectedTab) {
                 HomeView()
                     .tabItem {
                         Label("Home", systemImage: "house")
