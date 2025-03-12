@@ -21,6 +21,7 @@ There is 100% no need to, but if you want, buy me a coffee:
 
 ## Features
 
+- **Game**: Play the game of Clapster, where you tap the hands before they disappear, integrating with Game Center for leaderboard
 - **Event Tracking**: View all upcoming clap events with exact dates and times
 - **Precise Countdown**: Watch the days, hours, minutes, and seconds count down to the next clap
 - **Automatic Notifications**: Get reminders at 15 minutes, 1 hour, and 1 day before each event
