@@ -33,6 +33,12 @@ struct ContentView: View {
                         Label("Clap", systemImage: "hands.clap")
                     }
                     .tag(1)
+
+                PlayView()
+                    .tabItem {
+                        Label("Play", systemImage: "gamecontroller.circle")
+                    }
+                    .tag(2)
                 
                 AboutView()
                     .tabItem {
