@@ -26,11 +26,13 @@ struct ClapsterApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @StateObject private var tabSelection = TabSelectionViewModel()
+    @StateObject private var gameState = GameStateManager.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(tabSelection)
+                .environmentObject(gameState)
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .active {
                         // Check for upcoming claps when app becomes active

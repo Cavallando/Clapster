@@ -199,7 +199,6 @@ class LiveActivityManager {
                     let startTime = Date()
                     await activity.update(using: updatedState)
                     let updateTime = Date().timeIntervalSince(startTime)
-                    print("Live Activity updated: \(secondsRemaining) seconds remaining (update took \(String(format: "%.4f", updateTime))s)")
                 } catch {
                     print("Error updating Live Activity: \(error)")
                 }

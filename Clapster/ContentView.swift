@@ -13,53 +13,59 @@ let clapNotificationCategory = "CLAP_EVENT_NOTIFICATION"
 
 struct ContentView: View {
     @EnvironmentObject private var tabSelection: TabSelectionViewModel
+    @StateObject private var gameState = GameStateManager.shared
     @State private var notificationsSetup = false
-    @State private var selectedTab = 0
+    @State private var selectedTab = 2
     @State private var showToast = false
     @State private var toastMessage = ""
     @State private var toastIsError = false
     
+    // Computed property to determine when to show TabView
+    private var showTabView: Bool {
+        return !gameState.isGameActive && !gameState.isGameOver
+    }
+    
     var body: some View {
         ZStack {
-            TabView(selection: $tabSelection.selectedTab) {
-                HomeView()
-                    .tabItem {
-                        Label("Home", systemImage: "house")
-                    }
-                    .tag(0)
-                
-                ClapView()
-                    .tabItem {
-                        Label("Clap", systemImage: "hands.clap")
-                    }
-                    .tag(1)
+            // Only render the TabView when on menu (not in active game or game over)
+            if showTabView {
+                TabView(selection: $tabSelection.selectedTab) {
+                    HomeView()
+                        .tabItem {
+                            Label("Home", systemImage: "house")
+                        }
+                        .tag(0)
+                    
+                    ClapView()
+                        .tabItem {
+                            Label("Clap", systemImage: "hands.clap")
+                        }
+                        .tag(1)
 
-                PlayView()
-                    .tabItem {
-                        Label("Play", systemImage: "gamecontroller.circle")
-                    }
-                    .tag(2)
-                
-                AboutView()
-                    .tabItem {
-                        Label("About", systemImage: "info.circle")
-                    }
-                    .tag(2)
-            }
-            .onAppear {
-                // Setup automatic notifications once when the app starts
-                if !notificationsSetup {
-                    setupAutomaticNotifications()
+                    PlayView(preventAutoStart: true)
+                        .tabItem {
+                            Label("Play", systemImage: "gamecontroller.circle")
+                        }
+                        .tag(2)
+                    
+                    AboutView()
+                        .tabItem {
+                            Label("About", systemImage: "info.circle")
+                        }
+                        .tag(3)
                 }
-                
-                // Check if we're launched from a notification
-                checkForLaunchNotification()
+                .environmentObject(GameStateManager.shared)
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                .animation(.easeInOut(duration: 0.3), value: showTabView)
             }
-            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NavigateToClap"))) { _ in
-                // Navigate to the Clap tab when notification is received
-                selectedTab = 1
+            
+            // Show PlayView during gameplay or game over
+            if !showTabView {
+                PlayView()
+                    .environmentObject(GameStateManager.shared)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .animation(.easeInOut(duration: 0.3), value: showTabView)
             }
-            .environmentObject(TabSelection(selection: $selectedTab))
             
             // Toast notification - always in view hierarchy but only visible when showToast is true
             VStack {
@@ -78,7 +84,23 @@ struct ContentView: View {
                 // Initial state (invisible and offset)
                 self.showToast = false
             }
+            .onAppear {
+                // Setup automatic notifications once when the app starts
+                if !notificationsSetup {
+                    setupAutomaticNotifications()
+                }
+                
+                // Check if we're launched from a notification
+                checkForLaunchNotification()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NavigateToClap"))) { _ in
+                // Navigate to the Clap tab when notification is received
+                selectedTab = 1
+            }
+            .environmentObject(TabSelection(selection: $selectedTab))
         }
+        // Wrap the main ZStack in animation modifier
+        .animation(.easeInOut(duration: 0.3), value: showTabView)
     }
     
     // Check if the app was launched from a notification
