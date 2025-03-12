@@ -130,7 +130,13 @@ struct PlayView: View {
     }
     
     private func tapHand(_ hand: HandPosition) {
+        // Trigger haptic feedback
         tapHaptic.impactOccurred()
+        
+        // Play tap sound
+        SoundManager.shared.playSound(named: "clap", fileExtension: "wav")
+        // If you don't have custom sounds, use system sound as fallback:
+        // SoundManager.shared.playSystemSound()
         
         withAnimation(.easeInOut(duration: 0.3)) {
             gameState.tapHand(hand)
