@@ -12,6 +12,8 @@
 
 Clapster is an iOS app for participating in "The World's Longest Slow Clap" - a global movement that started on April 1st, 2021, when a small group of friends decided to create the most drawn-out slow clap in history, with intervals halving over time to eventually converge on a grand finale.
 
+This is mainly a joke, facilitating a real thing that my friends and I are doing.
+
 There is 100% no need to, but if you want, buy me a coffee:
 
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-donate-yellow.svg)](https://www.buymeacoffee.com/cavallando)
