@@ -15,7 +15,7 @@ struct ContentView: View {
     @EnvironmentObject private var tabSelection: TabSelectionViewModel
     @StateObject private var gameState = GameStateManager.shared
     @State private var notificationsSetup = false
-    @State private var selectedTab = 2
+    @State private var selectedTab = Tab.play
     @State private var showToast = false
     @State private var toastMessage = ""
     @State private var toastIsError = false
@@ -32,27 +32,27 @@ struct ContentView: View {
                 TabView(selection: $tabSelection.selectedTab) {
                     HomeView()
                         .tabItem {
-                            Label("Home", systemImage: "house")
+                            Label("Events", systemImage: "calendar")
                         }
-                        .tag(0)
+                        .tag(Tab.events)
                     
                     ClapView()
                         .tabItem {
                             Label("Clap", systemImage: "hands.clap")
                         }
-                        .tag(1)
+                        .tag(Tab.clap)
 
                     PlayView(preventAutoStart: true)
                         .tabItem {
                             Label("Play", systemImage: "gamecontroller.circle")
                         }
-                        .tag(2)
+                        .tag(Tab.play)
                     
                     AboutView()
                         .tabItem {
                             Label("About", systemImage: "info.circle")
                         }
-                        .tag(3)
+                        .tag(Tab.about)
                 }
                 .environmentObject(GameStateManager.shared)
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -81,7 +81,6 @@ struct ContentView: View {
             .offset(y: showToast ? 0 : -50)
             .animation(.easeInOut(duration: 0.3), value: showToast)
             .onAppear {
-                // Initial state (invisible and offset)
                 self.showToast = false
             }
             .onAppear {
@@ -95,7 +94,7 @@ struct ContentView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NavigateToClap"))) { _ in
                 // Navigate to the Clap tab when notification is received
-                selectedTab = 1
+                tabSelection.selectedTab = .clap
             }
             .environmentObject(TabSelection(selection: $selectedTab))
         }
@@ -109,7 +108,7 @@ struct ContentView: View {
                 if notification.request.content.categoryIdentifier == clapNotificationCategory {
                     DispatchQueue.main.async {
                         // Switch to the Clap tab
-                        selectedTab = 1
+                        tabSelection.selectedTab = .clap
                     }
                 }
             }

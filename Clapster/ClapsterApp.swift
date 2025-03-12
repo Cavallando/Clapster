@@ -8,19 +8,6 @@
 import SwiftUI
 import UserNotifications
 
-// Environment object to share selected tab across the app
-class TabSelection: ObservableObject {
-    init(selection: Binding<Int>) {
-        self._selection = selection
-    }
-    
-    private var _selection: Binding<Int>
-    
-    func select(tab: Int) {
-        _selection.wrappedValue = tab
-    }
-}
-
 @main
 struct ClapsterApp: App {
     @Environment(\.scenePhase) private var scenePhase
@@ -53,11 +40,13 @@ struct ClapsterApp: App {
             
             switch tabName {
             case "clap":
-                tabSelection.selectedTab = 1
-            case "home": 
-                tabSelection.selectedTab = 0
+                tabSelection.selectedTab = .clap
+            case "events": 
+                tabSelection.selectedTab = .events
             case "about":
-                tabSelection.selectedTab = 2
+                tabSelection.selectedTab = .about
+            case "play":
+                tabSelection.selectedTab = .play
             default:
                 break
             }
@@ -89,9 +78,4 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         completionHandler()
     }
-}
-
-// ViewModel to hold the tab selection state
-class TabSelectionViewModel: ObservableObject {
-    @Published var selectedTab: Int = 0
 }
