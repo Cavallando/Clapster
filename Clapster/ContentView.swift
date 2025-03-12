@@ -59,7 +59,7 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: 0.3), value: showTabView)
             }
             
-            // Show PlayView during gameplay or game over
+            // Show PlayView for both gameplay and game over
             if !showTabView {
                 PlayView()
                     .environmentObject(GameStateManager.shared)
@@ -99,7 +99,6 @@ struct ContentView: View {
             }
             .environmentObject(TabSelection(selection: $selectedTab))
         }
-        // Wrap the main ZStack in animation modifier
         .animation(.easeInOut(duration: 0.3), value: showTabView)
     }
     

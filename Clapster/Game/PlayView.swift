@@ -50,26 +50,38 @@ struct PlayView: View {
                     StartGameView(
                         isGameCenterEnabled: isGameCenterEnabled,
                         startGameAction: {
-                            gameState.startGame()
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameState.startGame()
+                            }
                         },
                         showLeaderboardAction: showLeaderboard
                     )
                 } 
                 else if gameState.isGameOver {
+                    // Game over screen with transition
                     GameOverView(
                         score: gameState.score,
                         finalTier: gameState.currentTier, 
                         isGameCenterEnabled: isGameCenterEnabled,
                         resetGameAction: {
-                            gameState.startGame()
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameState.startGame()
+                            }
                         },
                         showLeaderboardAction: showLeaderboard,
                         backToMenuAction: {
-                            gameState.goToMenu()
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameState.goToMenu()
+                            }
                         }
                     )
+                    .transition(.asymmetric(
+                        insertion: .opacity.combined(with: .scale(scale: 0.9).combined(with: .offset(y: 20))),
+                        removal: .opacity.combined(with: .scale(scale: 0.9))
+                    ))
                 }
                 else {
+                    // Active gameplay with transition
                     VStack(spacing: 0) {
                       
                         ScoreCardView(
@@ -103,8 +115,14 @@ struct PlayView: View {
                             )
                         }
                     }
+                    .transition(.asymmetric(
+                        insertion: .opacity.combined(with: .scale(scale: 1.1)),
+                        removal: .opacity.combined(with: .scale(scale: 0.9))
+                    ))
                 }
             }
+            .animation(.easeInOut(duration: 0.3), value: gameState.isGameActive)
+            .animation(.easeInOut(duration: 0.3), value: gameState.isGameOver)
             .onAppear {
                 authenticatePlayer()
             }
@@ -114,7 +132,9 @@ struct PlayView: View {
     private func tapHand(_ hand: HandPosition) {
         tapHaptic.impactOccurred()
         
-        gameState.tapHand(hand)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            gameState.tapHand(hand)
+        }
         
         if gameState.isGameOver && isGameCenterEnabled {
             submitScore(gameState.score)

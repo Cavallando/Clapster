@@ -32,31 +32,37 @@ class GameStateManager: ObservableObject {
     
     // Start a new game
     func startGame() {
-        isGameActive = true
-        isGameOver = false
-        score = 0
-        currentTier = 0
-        handPositions = []
-        
-        currentSpeed = DEFAULT_SPEED
-        currentSpawnRate = DEFAULT_SPAWN_RATE
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isGameActive = true
+            isGameOver = false
+            score = 0
+            currentTier = 0
+            handPositions = []
+            
+            currentSpeed = DEFAULT_SPEED
+            currentSpawnRate = DEFAULT_SPAWN_RATE
+        }
         
         startTimer()
     }
     
     // End the game
     func endGame() {
-        isGameActive = false
-        isGameOver = true
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isGameActive = false
+            isGameOver = true
+        }
         stopTimer()
     }
     
     // Go back to menu
     func goToMenu() {
-        isGameActive = false
-        isGameOver = false
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isGameActive = false
+            isGameOver = false
+            handPositions = []
+        }
         stopTimer()
-        handPositions = []
     }
     
     // Update screen dimensions
