@@ -7,48 +7,54 @@ struct StartGameView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack {
+            // Main container with vertical center alignment
+            VStack(alignment: .center) {
                 Spacer()
-
-                Text("Clapster: The Game")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                
+                // Game title and instructions - centered group
+                VStack(spacing: 20) {
+                    Text("Clapster: The Game")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    
+                    Text("Tap the hands before they disappear!")
+                        .font(.headline)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 5)
+                    
+                    // Game instructions
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack(alignment: .top, spacing: 12) {
+                            Image(systemName: "hand.raised.fill")
+                                .foregroundColor(.orange)
+                            Text("Tap the hands before they disappear")
+                        }
+                        
+                        HStack(alignment: .top, spacing: 12) {
+                            Image(systemName: "speedometer")
+                                .foregroundColor(.orange)
+                            Text("Hands appear faster and faster")
+                        }
+                        
+                        HStack(alignment: .top, spacing: 12) {
+                            Image(systemName: "arrow.up.forward")
+                                .foregroundColor(.green)
+                            Text("See how high you can go")
+                        }
+                        
+                        HStack(alignment: .top, spacing: 12) {
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundColor(.red)
+                            Text("Miss one hand and it's game over!")
+                        }
+                    }
                     .padding()
-                
-                Text("Tap the hands before they disappear!")
-                    .font(.headline)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 5)
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "speedometer")
-                            .foregroundColor(.blue)
-                        Text("Hands appear and disappear faster as you advance")
-                    }
-                    
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "hand.raised.fill")
-                            .foregroundColor(.orange)
-                        Text("Multiple hands may appear at once in higher tiers")
-                    }
-                    
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "arrow.up.forward")
-                            .foregroundColor(.green)
-                        Text("Reach higher tiers by increasing your score")
-                    }
-                    
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "exclamationmark.triangle")
-                            .foregroundColor(.red)
-                        Text("Miss one hand and it's game over!")
-                    }
                 }
                 .padding()
                 
                 Spacer()
                 
+                // Buttons at bottom
                 VStack(spacing: 16) {
                     StartGameButton(action: startGameAction, width: geometry.size.width * 0.7)
                     
@@ -58,6 +64,7 @@ struct StartGameView: View {
                 }
                 .padding(.bottom, 40)
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
