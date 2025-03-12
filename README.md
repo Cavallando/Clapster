@@ -12,6 +12,11 @@
 
 Clapster is an iOS app for participating in "The World's Longest Slow Clap" - a global movement that started on April 1st, 2021, when a small group of friends decided to create the most drawn-out slow clap in history, with intervals halving over time to eventually converge on a grand finale.
 
+There is 100% no need to, but if you want, buy me a coffee:
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-donate-yellow.svg)](https://www.buymeacoffee.com/cavallando)
+
+
 ## Features
 
 - **Event Tracking**: View all upcoming clap events with exact dates and times
@@ -81,10 +86,6 @@ Contributions are welcome! If you'd like to contribute:
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## Contact
-
-Project Link: [https://github.com/yourusername/clapster](https://github.com/yourusername/clapster)
 
 ## License
 
