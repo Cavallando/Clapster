@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import GameKit
 
 class GameStateManager: ObservableObject {
     // Display state
@@ -35,6 +36,11 @@ class GameStateManager: ObservableObject {
     
     // Add game over reason property
     @Published var gameOverReason: GameOverReason = .none
+    
+    // Add Game Center state
+    @Published var isGameCenterEnabled = false
+    @Published var gameCenterError: String? = nil
+    private let leaderboardID = "fun.mike.clapster.leaderboard"
     
     static let shared = GameStateManager()
     
@@ -232,6 +238,103 @@ class GameStateManager: ObservableObject {
         // Reset flag after animation completes
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.animateDifficultyChange = false
+        }
+    }
+    
+    // Initialize Game Center on launch
+    func initializeGameCenter() {
+        authenticatePlayer()
+    }
+    
+    // Game Center Authentication
+    private func authenticatePlayer() {
+        GKLocalPlayer.local.authenticateHandler = { [weak self] viewController, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                self.gameCenterError = "Authentication error: \(error.localizedDescription)"
+                print("Game Center authentication error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let viewController = viewController {
+                // Present the view controller if needed
+                if let window = UIApplication.shared.windows.first, 
+                   let rootViewController = window.rootViewController {
+                    rootViewController.present(viewController, animated: true)
+                }
+            } else if GKLocalPlayer.local.isAuthenticated {
+                // Player is authenticated
+                DispatchQueue.main.async {
+                    self.isGameCenterEnabled = true
+                }
+                print("Game Center: Successfully authenticated as \(GKLocalPlayer.local.displayName)")
+                
+                // Verify leaderboard exists
+                self.verifyLeaderboard()
+            } else {
+                // Player declined to sign in
+                DispatchQueue.main.async {
+                    self.isGameCenterEnabled = false
+                }
+                self.gameCenterError = "You must sign in to Game Center to use leaderboards"
+                print("Game Center: Player declined to sign in")
+            }
+        }
+    }
+    
+    private func verifyLeaderboard() {
+        print("Verifying Game Center leaderboard with ID: \(leaderboardID)")
+        GKLeaderboard.loadLeaderboards(IDs: [leaderboardID]) { leaderboards, error in
+            if let error = error {
+                print("Error loading leaderboard: \(error.localizedDescription)")
+                self.gameCenterError = "Error loading leaderboard: \(error.localizedDescription)"
+                return
+            }
+            
+            if leaderboards?.count == 0 {
+                print("Leaderboard \(self.leaderboardID) not found!")
+                self.gameCenterError = "Leaderboard not found. Check your App Store Connect configuration."
+            } else {
+                print("Leaderboard verified successfully!")
+                self.submitTestScore()
+            }
+        }
+    }
+    
+    private func submitTestScore() {
+        GKLeaderboard.submitScore(1, context: 0, player: GKLocalPlayer.local,
+                                 leaderboardIDs: [leaderboardID]) { error in
+            if let error = error {
+                print("Error submitting test score: \(error.localizedDescription)")
+            } else {
+                print("Test score submitted successfully")
+            }
+        }
+    }
+    
+    func submitScore(_ score: Int) {
+        print("Submitting score \(score) to leaderboard ID: \(leaderboardID)")
+        
+        GKLeaderboard.submitScore(Int(score), context: 0, player: GKLocalPlayer.local,
+                                 leaderboardIDs: [leaderboardID]) { error in
+            if let error = error {
+                print("Error submitting score: \(error.localizedDescription)")
+            } else {
+                print("Score \(score) submitted successfully")
+            }
+        }
+    }
+    
+    func showLeaderboard() {
+        print("Showing Game Center leaderboard...")
+        let gcViewController = GKGameCenterViewController(state: .leaderboards)
+        gcViewController.leaderboardIdentifier = leaderboardID
+        gcViewController.gameCenterDelegate = GameCenterDelegate.shared
+        
+        if let window = UIApplication.shared.windows.first, 
+           let rootViewController = window.rootViewController {
+            rootViewController.present(gcViewController, animated: true)
         }
     }
 } 

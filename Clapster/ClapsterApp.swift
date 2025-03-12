@@ -20,6 +20,10 @@ struct ClapsterApp: App {
             ContentView()
                 .environmentObject(tabSelection)
                 .environmentObject(gameState)
+                .onAppear {
+                    // Initialize Game Center on app launch
+                    gameState.initializeGameCenter()
+                }
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .active {
                         // Check for upcoming claps when app becomes active
