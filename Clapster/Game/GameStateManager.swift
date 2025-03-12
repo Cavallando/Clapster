@@ -33,6 +33,9 @@ class GameStateManager: ObservableObject {
     // Add a flag to trigger the difficulty label animation
     @Published var animateDifficultyChange = false
     
+    // Add game over reason property
+    @Published var gameOverReason: GameOverReason = .none
+    
     static let shared = GameStateManager()
     
     private init() {}
@@ -42,6 +45,7 @@ class GameStateManager: ObservableObject {
         withAnimation(.easeInOut(duration: 0.3)) {
             isGameActive = true
             isGameOver = false
+            gameOverReason = .none  // Reset the reason
             score = 0
             currentTier = 0
             handPositions = []
@@ -56,10 +60,11 @@ class GameStateManager: ObservableObject {
     }
     
     // End the game
-    func endGame() {
+    func endGame(reason: GameOverReason = .missedHand) {
         withAnimation(.easeInOut(duration: 0.3)) {
             isGameActive = false
             isGameOver = true
+            gameOverReason = reason
         }
         stopTimers()
     }
@@ -181,7 +186,7 @@ class GameStateManager: ObservableObject {
             let timeOnScreen = now.timeIntervalSince(hand.createdAt)
             // Missed a hand - game over
             if timeOnScreen > hand.timeToLive {
-                endGame()
+                endGame(reason: .missedHand)
                 return
             }
         }

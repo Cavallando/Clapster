@@ -60,7 +60,8 @@ struct PlayView: View {
                     // Game over screen with transition
                     GameOverView(
                         score: gameState.score,
-                        finalTier: gameState.currentTier, 
+                        finalTier: gameState.currentTier,
+                        gameOverReason: gameState.gameOverReason,
                         isGameCenterEnabled: isGameCenterEnabled,
                         resetGameAction: {
                             withAnimation(.easeInOut(duration: 0.3)) {
@@ -92,18 +93,37 @@ struct PlayView: View {
                         
                         // Game play area
                         ZStack {
+                            // Background area that will trigger game over if tapped
                             Rectangle()
                                 .fill(Color.clear)
                                 .frame(width: geometry.size.width, height: geometry.size.height - 130)
                                 .contentShape(Rectangle())
-                                // Disable hit testing on the entire game area
-                                .allowsHitTesting(false)
+                                // Enable hit testing to detect taps on background
+                                .allowsHitTesting(true)
+                                .onTapGesture {
+                                    // Vibrate to indicate mistake
+                                    let errorHaptic = UINotificationFeedbackGenerator()
+                                    errorHaptic.notificationOccurred(.error)
+                                    
+                                    // End the game with reason
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        gameState.endGame(reason: .tappedOutside)
+                                    }
+                                    
+                                    // Submit score if game center is enabled
+                                    if isGameCenterEnabled {
+                                        submitScore(gameState.score)
+                                    }
+                                }
                             
+                            // Hands must be rendered on top of the background
                             ForEach(gameState.handPositions) { hand in
                                 HandView(hand: hand, tapAction: {
                                     tapHand(hand)
                                 })
                                 .position(x: hand.x, y: hand.y)
+                                // Make sure hands have higher Z index to receive taps first
+                                .zIndex(10)
                             }
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height - 130)

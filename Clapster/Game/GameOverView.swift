@@ -1,8 +1,26 @@
 import SwiftUI
 
+enum GameOverReason {
+    case missedHand      // Player didn't tap a hand in time
+    case tappedOutside   // Player tapped outside a hand
+    case none            // No reason (game not over)
+    
+    var message: String {
+        switch self {
+        case .missedHand:
+            return "You weren't quick enough!"
+        case .tappedOutside:
+            return "You missed the hand!"
+        case .none:
+            return ""
+        }
+    }
+}
+
 struct GameOverView: View {
     var score: Int
     var finalTier: Int
+    var gameOverReason: GameOverReason
     var isGameCenterEnabled: Bool
     var resetGameAction: () -> Void
     var showLeaderboardAction: () -> Void
@@ -19,6 +37,12 @@ struct GameOverView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.red)
                         .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Text(gameOverReason.message)
+                        .font(.title2)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
                     
                     ScoreCardView(
                         score: score,
@@ -62,6 +86,7 @@ struct GameOverViewPreviews: PreviewProvider {
             GameOverView(
                 score: 45,
                 finalTier: 1,
+                gameOverReason: .none,
                 isGameCenterEnabled: true,
                 resetGameAction: {},
                 showLeaderboardAction: {},
@@ -73,6 +98,7 @@ struct GameOverViewPreviews: PreviewProvider {
             GameOverView(
                 score: 150,
                 finalTier: 3,
+                gameOverReason: .none,
                 isGameCenterEnabled: true,
                 resetGameAction: {},
                 showLeaderboardAction: {},
@@ -84,6 +110,7 @@ struct GameOverViewPreviews: PreviewProvider {
             GameOverView(
                 score: 25,
                 finalTier: 1,
+                gameOverReason: .none,
                 isGameCenterEnabled: false,
                 resetGameAction: {},
                 showLeaderboardAction: {},
