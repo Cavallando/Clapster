@@ -91,3 +91,20 @@ struct DateTimeCard: View {
     .padding()
     .preferredColorScheme(.dark)
 } 
+
+#Preview {
+    HStack {
+        DateTimeCard(date: Date())
+        DateTimeCard(date: Date().addingTimeInterval(86400))
+    }
+}
+
+
+
+
+// Guides and Surveys Preview
+#Preview {
+    
+    
+}
+
